@@ -15,6 +15,7 @@
 # along with this programe.  If not, see <http://www.gnu.org/licenses/>.
 import sys
 from django import forms
+from django.conf import settings
 from django.forms.widgets import ChoiceWidget, CheckboxSelectMultiple
 from django.utils.encoding import force_text
 
@@ -29,9 +30,10 @@ class CheckboxSelectMultipleSorted(CheckboxSelectMultiple):
     option_template_name = 'django/forms/widgets/checkbox_option.html'
 
     class Media:
+        extra = '' if settings.DEBUG else '.min'
         js = (
+            'multiselectfield/jquery-ui%s.js' % extra,
             'multiselectfield/widget.js',
-            'multiselectfield/jquery-ui.min.js',
         )
         css = {'screen': (
             'multiselectfield/widget.css',
